@@ -1,3 +1,13 @@
 ## Simple NFT tutorial
 
 https://www.youtube.com/watch?v=dmyADPRG9r4
+
+This loosly follows ERC-721 specification for better learning.
+
+### transferFrom vs safeTransferFrom
+
+`safeTransferFrom` first checks if the recipient is a smart contract.
+If you transfer an NFT to a smart contract, and the smart contract does not have any ability
+to transfer the NFT again, then it will get stuck their.
+
+`transferFrom` doesn't check if the recipient is a smart contract.

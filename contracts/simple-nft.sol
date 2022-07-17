@@ -8,7 +8,6 @@ contract SimpleNFT {
     using Strings for uint256;
 
     event Transfer(address indexed _from, address indexed _to, uint256 indexed _tokenId);
-
     event ApprovalForAll(address indexed _owner, address indexed _operator, bool _approved);
     
     /**
@@ -17,8 +16,8 @@ contract SimpleNFT {
      * (also you can't iterate with address, additional list with address will cost gas)
      */
     mapping(uint256 => address) private _owners;
-
     mapping(address => mapping(address => bool)) private _operators;
+    mapping(address => uint256) private _balances;
 
     string baseURL = "https://example.com/images/";
 
@@ -27,6 +26,8 @@ contract SimpleNFT {
         require(_tokenId < 100, "_tokenId too large");
         emit Transfer(address(0), msg.sender, _tokenId);
         _owners[_tokenId] = msg.sender;
+
+        _balances[msg.sender] += 1;
     }
 
     function ownerOf(uint256 _tokenId) external view returns (address) {
@@ -47,6 +48,9 @@ contract SimpleNFT {
         // after this nft has been transfered, we should set this to be false back again
         _operators[_from][msg.sender] = false;
         _owners[_tokenId] = _to;
+
+        _balances[_from] -= 1;
+        _balances[_to] += 1;
     }
 
     function tokenURI(uint256 _tokenId) external view returns (string memory) {
@@ -65,9 +69,8 @@ contract SimpleNFT {
         return _operators[_owner][_operator];
     }
 
-
-    // if you want to approve one specific token
-    function approve(address _approved, uint256 _tokenId) external payable {
-
+    function balanceOf(address _owner) external view returns (uint256) {
+        require(_owner != address(0), "zero address");
+        return _balances[_owner];
     }
 }

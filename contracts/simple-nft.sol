@@ -54,4 +54,8 @@ contract SimpleNFT {
 
         _operators[msg.sender][_operator] = _approved;
     }
+
+    function isApprovedForAll(address _owner, address _operator) external view returns (bool) {
+        return _operators[_owner][_operator];
+    }
 }

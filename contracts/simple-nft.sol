@@ -1,7 +1,11 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity 0.8.7;
 
+import "@openzeppelin/contracts/utils/Strings.sol";
+
 contract SimpleNFT {
+    // associate this library to uint256
+    using Strings for uint256;
     
     /**
      * You can know token id in advance,
@@ -35,6 +39,6 @@ contract SimpleNFT {
         
         require(_owners[_tokenId] != address(0), "does not exist");
 
-        return string(abi.encodePacked(baseURL, _tokenId));
+        return string(abi.encodePacked(baseURL, _tokenId.toString(), ".jpeg"));
     }
 }

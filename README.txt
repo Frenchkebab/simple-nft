@@ -15,3 +15,7 @@ to transfer the NFT again, then it will get stuck their.
 ### What if we just point to the jpeg of the image?
 
 It's the combination of the smart contract address and tokenId that makes NFT unique
+
+### How to use `.toString()` in solidity
+
+https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/Strings.sol

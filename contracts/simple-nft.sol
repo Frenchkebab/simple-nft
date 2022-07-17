@@ -8,6 +8,8 @@ contract SimpleNFT {
     using Strings for uint256;
 
     event Transfer(address indexed _from, address indexed _to, uint256 indexed _tokenId);
+
+    event ApprovalForAll(address indexed _owner, address indexed _operator, bool _approved);
     
     /**
      * You can know token id in advance,
@@ -55,8 +57,8 @@ contract SimpleNFT {
     }
 
     function setApprovalForAll(address _operator, bool _approved) external {
-
         _operators[msg.sender][_operator] = _approved;
+        emit ApprovalForAll(msg.sender, _operator, _approved);
     }
 
     function isApprovedForAll(address _owner, address _operator) external view returns (bool) {

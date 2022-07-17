@@ -6,6 +6,8 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 contract SimpleNFT {
     // associate this library to uint256
     using Strings for uint256;
+
+    event Transfer(address indexed _from, address indexed _to, uint256 indexed _tokenId);
     
     /**
      * You can know token id in advance,
@@ -21,6 +23,7 @@ contract SimpleNFT {
     function mint(uint256 _tokenId) external {
         require(_owners[_tokenId] == address(0), "already minted");
         require(_tokenId < 100, "_tokenId too large");
+        emit Transfer(address(0), msg.sender, _tokenId);
         _owners[_tokenId] = msg.sender;
     }
 
@@ -38,6 +41,7 @@ contract SimpleNFT {
         // or if msg.sender is approved operator, then we allow this.
         require(msg.sender == _from || _operators[_from][msg.sender], "required to be owner");
 
+        emit Transfer(_from, _to, _tokenId);
         // after this nft has been transfered, we should set this to be false back again
         _operators[_from][msg.sender] = false;
         _owners[_tokenId] = _to;
@@ -57,5 +61,11 @@ contract SimpleNFT {
 
     function isApprovedForAll(address _owner, address _operator) external view returns (bool) {
         return _operators[_owner][_operator];
+    }
+
+
+    // if you want to approve one specific token
+    function approve(address _approved, uint256 _tokenId) external payable {
+
     }
 }

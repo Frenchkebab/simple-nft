@@ -26,3 +26,15 @@ https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/uti
 You can query who a specific address approved
 
 https://etherscan.io/tokenapprovalchecker
+
+### How can opensea know the tokenId?
+
+```solidity
+event Transfer(address indexed _from, address indexed _to, uint256 indexed _tokenId);
+```
+
+https://etherscan.io/address/0x1a92f7381b9f03921564a437210bb9396471050c#events
+
+if we convert this to decimal we can figure out which tokenId it is.
+
+

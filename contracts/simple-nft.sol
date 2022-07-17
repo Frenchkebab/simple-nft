@@ -10,6 +10,8 @@ contract SimpleNFT {
      */
     mapping(uint256 => address) private _owners;
 
+    string baseURL = "https://example.com/images/";
+
     function mint(uint256 _tokenId) external {
         require(_owners[_tokenId] == address(0), "already minted");
         require(_tokenId < 100, "_tokenId too large");
@@ -27,5 +29,12 @@ contract SimpleNFT {
         require(_owners[_tokenId] == _from, "the address does not own the token");
         require(msg.sender == _from, "required to be owner");
         _owners[_tokenId] = _to;
+    }
+
+    function tokenURI(uint256 _tokenId) external view returns (string memory) {
+        
+        require(_owners[_tokenId] != address(0), "does not exist");
+
+        return string(abi.encodePacked(baseURL, _tokenId));
     }
 }

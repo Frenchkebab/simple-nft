@@ -11,3 +11,7 @@ If you transfer an NFT to a smart contract, and the smart contract does not have
 to transfer the NFT again, then it will get stuck their.
 
 `transferFrom` doesn't check if the recipient is a smart contract.
+
+### What if we just point to the jpeg of the image?
+
+It's the combination of the smart contract address and tokenId that makes NFT unique

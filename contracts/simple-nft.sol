@@ -14,6 +14,8 @@ contract SimpleNFT {
      */
     mapping(uint256 => address) private _owners;
 
+    mapping(address => mapping(address => bool)) private _operators;
+
     string baseURL = "https://example.com/images/";
 
     function mint(uint256 _tokenId) external {
@@ -31,7 +33,13 @@ contract SimpleNFT {
         // check if the token id exists
         require(_owners[_tokenId] != address(0), "token does not exist");
         require(_owners[_tokenId] == _from, "the address does not own the token");
-        require(msg.sender == _from, "required to be owner");
+
+        // msg.sender can obviously move his own assets
+        // or if msg.sender is approved operator, then we allow this.
+        require(msg.sender == _from || _operators[_from][msg.sender], "required to be owner");
+
+        // after this nft has been transfered, we should set this to be false back again
+        _operators[_from][msg.sender] = false;
         _owners[_tokenId] = _to;
     }
 
@@ -40,5 +48,10 @@ contract SimpleNFT {
         require(_owners[_tokenId] != address(0), "does not exist");
 
         return string(abi.encodePacked(baseURL, _tokenId.toString(), ".jpeg"));
+    }
+
+    function setApprovalForAll(address _operator, bool _approved) external {
+
+        _operators[msg.sender][_operator] = _approved;
     }
 }

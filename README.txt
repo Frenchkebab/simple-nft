@@ -19,3 +19,10 @@ It's the combination of the smart contract address and tokenId that makes NFT un
 ### How to use `.toString()` in solidity
 
 https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/Strings.sol
+
+
+### Token Approval
+
+You can query who a specific address approved
+
+https://etherscan.io/tokenapprovalchecker

@@ -38,3 +38,9 @@ https://etherscan.io/address/0x1a92f7381b9f03921564a437210bb9396471050c#events
 if we convert this to decimal we can figure out which tokenId it is.
 
 
+### `constant` variable
+
+`constant` variables are more gas efficient than regular variables.
+(Check out the gas course!)
+
+

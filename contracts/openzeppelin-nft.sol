@@ -11,10 +11,10 @@ contract OpenZeppelinNFT is ERC721, Ownable {
     uint256 public constant MAX_SUPPLY = 5;
     uint256 public constant PRICE = 1 ether;
 
-
+    address immutable deployer;
 
     constructor() ERC721("MyNFT", "MN") {
-        
+        deployer = msg.sender;
     }
 
     function mint() external {
@@ -28,8 +28,8 @@ contract OpenZeppelinNFT is ERC721, Ownable {
         return address(this).balance;
     }
 
-    function withdraw() external onlyOwner {
-        payable(msg.sender).transfer(address(this).balance);
+    function withdraw() external {
+        payable(deployer).transfer(address(this).balance);
     }
 
     // to get rid of the risk that the contract becomes out of control,
